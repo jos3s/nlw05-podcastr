@@ -1,6 +1,94 @@
-import { useRouter } from "next/router";
+import { GetStaticProps, GetStaticPaths } from "next";
+import { format, parseISO } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function Episode() {
-	const router = useRouter();
-	return <h1>{router.query.episode}</h1>;
+import { api } from "../../services/api";
+import { convertDurationToTimeString } from "../../utils/convertDurationToTimeString";
+
+import style from "./episode.module.scss";;
+
+type Episode = {
+	id: string;
+	title: string;
+	thumbnail: string;
+	members: string;
+	duration: number;
+	durationAsString: string;
+	url: string;
+	publishedAt: string;
+	description: string;
+};
+
+type EpisodeProps = {
+	episode: Episode;
+};
+
+export default function Episode({ episode }: EpisodeProps) {
+	return (
+		<div className={style.episode}>
+			<div className={style.thumbnailContainer}>
+				<button>
+					<img src="/arrow-left.svg" alt="Voltar" />
+				</button>
+				<Image
+					width={700}
+					height={160}
+					src={episode.thumbnail}
+					objectFit="cover"
+				/>
+				<button type="button">
+					<img src="/play-green.svg" alt="Tocar episódio" />
+				</button>
+			</div>
+			<header>
+				<h1>{episode.title}</h1>
+				<span>{episode.members}</span>
+				<span>{episode.publishedAt}</span>
+				<span>{episode.durationAsString}</span>
+			</header>
+			<div
+				className={style.description}
+				dangerouslySetInnerHTML={{ __html: episode.description }}
+			/>
+		</div>
+	);
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	return {
+		paths: [],
+		fallback: "blocking",
+	};
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+	const { episode } = ctx.params;
+
+	console.log(ctx.params);
+	const { data } = await api.get(`/episodes/${episode}`);
+
+	const ep = {
+		id: data.id,
+		title: data.title,
+		thumbnail: data.thumbnail,
+		members: data.members,
+		publishedAt: format(parseISO(data.published_at), "d MMM yy", {
+			locale: ptBR,
+		}),
+		duration: Number(data.file.duration),
+		durationAsString: convertDurationToTimeString(
+			Number(data.file.duration)
+		),
+		description: data.description,
+		url: data.file.url,
+	};
+
+	return {
+		props: {
+			episode:  ep,
+		},
+		revalidate: 60 * 60 * 12, // 12 hours
+	};
+};
