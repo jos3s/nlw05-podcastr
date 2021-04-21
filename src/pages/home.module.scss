@@ -1,6 +1,6 @@
 .homepage{
     padding: 0 4rem;
-    height: calc(100vh-6.5rem);
+    height: calc(100vh - 6.5rem);
     overflow-y: scroll;
 
     h2{
@@ -118,6 +118,81 @@
                 -moz-transition: filter 0.2s;
                 -ms-transition: filter 0.2s;
                 -o-transition: filter 0.2s;
+                
+                img{
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+
+                &:hover{
+                    filter: brightness(0.95);
+                    -webkit-filter: brightness(0.95);
+                }
+            }
+        }
+    }
+}
+
+.allEpisodes{
+    padding-bottom:2rem;
+
+    table{
+        width:100%;
+
+        th,td{
+            padding:0.75rem 1rem;
+            border-bottom:1px solid var(--gray-100);
+        }
+
+        th{
+            color:var(--gray-200);
+            text-transform:uppercase;
+            font:500 0.75rem Lexend, sans-serif;
+            text-align:left;
+        }
+
+        td{
+            font-size:0.875rem;
+
+            img{
+                width:2.5rem;
+                height:2.5rem;
+                border-radius:.5rem;
+                -webkit-border-radius:.5rem;
+                -moz-border-radius:.5rem;
+                -ms-border-radius:.5rem;
+                -o-border-radius:.5rem;
+            }       
+
+            a{
+                color:var(--gray-800);
+                font: 600 1rem Lexend, sans-serif;
+                text-decoration:none;
+                line-height:1.4rem;
+
+                &:hover{
+                    text-decoration:underline;
+                }
+            }
+
+            button{
+                width: 2rem;
+                height: 2rem;
+                background: var(--white);
+                border: 1px solid var(--gray-100);
+                border-radius: 1rem;
+                -moz-border-radius: 1rem;
+                -ms-border-radius: 1rem;
+                -o-border-radius: 1rem;
+                -webkit-border-radius: 1rem;
+                
+                transition: filter 0.2s;
+                -webkit-transition: filter 0.2s;
+                -moz-transition: filter 0.2s;
+                -ms-transition: filter 0.2s;
+                -o-transition: filter 0.2s;
+                
+                font-size: 0;
                 
                 img{
                     width: 1.5rem;
