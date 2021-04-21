@@ -1,25 +1,23 @@
-import { useEffect } from "react";
 import { GetStaticProps } from "next";
 import Image from "next/image";
-import { format,parseISO } from "date-fns";
+import { format, parseISO } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 
-import { Header } from "../components/Header/Header";
 import { api } from "../services/api";
 import { convertDurationToTimeString } from "../utils/convertDurationToTimeString";
 
 import styles from "./home.module.scss";
 
 type Episode = {
-	id:string;
-	title:string;
-	thumbnail:string;
-	members:string;
-	publishedAt:string;
-	duration:number;
-	durationAsString:string;
-	description:string;
-	url:string;
+	id: string;
+	title: string;
+	thumbnail: string;
+	members: string;
+	publishedAt: string;
+	duration: number;
+	durationAsString: string;
+	description: string;
+	url: string;
 };
 
 type HomeProps = {
@@ -44,7 +42,9 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 									objectFit="cover"
 								/>
 								<div className={styles.episodeDetails}>
-									<a href="">{episode.title}</a>
+									<a href={`/episodes/${episode.id}`}>
+										{episode.title}
+									</a>
 									<p>{episode.members}</p>
 									<span>{episode.publishedAt}</span>
 									<span>{episode.durationAsString}</span>
@@ -76,7 +76,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 						{allEpisodes.map((episode) => {
 							return (
 								<tr key={episode.id}>
-									<td style={{ width:   72 }}>
+									<td style={{ width: 72 }}>
 										<Image
 											width={120}
 											height={120}
@@ -86,10 +86,12 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 										/>
 									</td>
 									<td>
-										<a href="">{episode.title}</a>
+										<a href={`/episodes/${episode.id}`}>
+											{episode.title}
+										</a>
 									</td>
 									<td>{episode.members}</td>
-									<td style={{ width:   100 }}>
+									<td style={{ width: 100 }}>
 										{episode.publishedAt}
 									</td>
 									<td>{episode.durationAsString}</td>
@@ -111,27 +113,31 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 	);
 }
 
-export const getStaticProps:  GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 	const { data } = await api.get("episodes", {
 		params: {
 			_limit: 12,
 			_sort: "published_at",
-			_order:"desc"
-		}
+			_order: "desc",
+		},
 	});
 
-	const episodes = data.map(episode => {
+	const episodes = data.map((episode) => {
 		return {
-			id:episode.id,
-			title:episode.title,
+			id: episode.id,
+			title: episode.title,
 			thumbnail: episode.thumbnail,
 			members: episode.members,
-			publishedAt: format(parseISO(episode.published_at), "d MMM yy", { locale: ptBR }),
+			publishedAt: format(parseISO(episode.published_at), "d MMM yy", {
+				locale: ptBR,
+			}),
 			duration: Number(episode.file.duration),
-			durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
+			durationAsString: convertDurationToTimeString(
+				Number(episode.file.duration)
+			),
 			description: episode.description,
-			url:episode.file.url,
-		}
+			url: episode.file.url,
+		};
 	});
 
 	const latestEpisodes = episodes.slice(0, 2);
@@ -144,4 +150,4 @@ export const getStaticProps:  GetStaticProps = async () => {
 		},
 		revalidate: 60 * 60 * 8,
 	};
-};;
+};
