@@ -12,7 +12,6 @@ export default function MyApp({ Component, pageProps }) {
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
 
   function play(episode) {
-    console.log("App play:", episode);
     setEpisodeList([episode]);
     setCurrentEpisodeIndex(0);
   }
