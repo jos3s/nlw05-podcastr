@@ -22,9 +22,21 @@ export default function MyApp({ Component, pageProps }) {
     setIsPlaying(!isPlaying); 
   }
 
+  function setPlayingState(state: boolean) {
+    setIsPlaying(state);
+  }
+
   return (
 		<PlayerContext.Provider
-			value={{ episodeList, currentEpisodeIndex, isPlaying, play ,togglePlay}}
+			value={
+        { 
+          episodeList, 
+          currentEpisodeIndex, 
+          isPlaying,
+          play, 
+          togglePlay, 
+          setPlayingState }
+      }
 		>
 			<div className={styles.wrapper}>
 				<main>

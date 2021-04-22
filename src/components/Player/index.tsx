@@ -15,7 +15,8 @@ export function Player() {
 		episodeList, 
 		currentEpisodeIndex, 
 		isPlaying,
-		togglePlay } = useContext(PlayerContext);
+		togglePlay,
+		setPlayingState} = useContext(PlayerContext);
 
 	useEffect(() => {
 		if (!audioRef.current) {
@@ -62,7 +63,10 @@ export function Player() {
 							<Slider
 								trackStyle={{ backgroundColor: "#04d361" }}
 								railStyle={{ backgroundColor: "#9f75ff" }}
-								handleStyle={{ borderColor: "#04d361", borderWidth:4  }}
+								handleStyle={{
+									borderColor: "#04d361",
+									borderWidth: 4,
+								}}
 							/>
 						) : (
 							<div className={styles.emptySlider} />
@@ -70,12 +74,14 @@ export function Player() {
 					</div>
 					<span>00:00</span>
 				</div>
-				
+
 				{episode && (
 					<audio
 						src={episode.url}
 						ref={audioRef}
 						autoPlay
+						onPlay={() => setPlayingState(true)}
+						onPause={() => setPlayingState(false)}
 					/>
 				)}
 
@@ -93,8 +99,8 @@ export function Player() {
 						onClick={togglePlay}
 					>
 						{isPlaying
-							? <img src = "/pause.svg" alt = "Tocar" />
-							: <img src="/play.svg" alt="Tocar" /> }
+							? <img src="/pause.svg" alt="Tocar" />
+							: <img src="/play.svg" alt="Tocar" />}
 					</button>
 					<button type="button" disabled={!episode}>
 						<img src="/play-next.svg" alt="Tocar próxima" />
