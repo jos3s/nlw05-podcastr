@@ -117,15 +117,33 @@
         border: 0;
         font-size: 0;
 
+        transition:filter .2s;
+
+        &:disabled{
+            cursor:default;
+        }
+
+        &:hover:not(:disabled){
+            filter:brightness(0.7);
+            -webkit-filter:brightness(0.7);
+}
+
         &.playButton{
             background: var(--purple-400);
-            width: 4rem;
-            height: 4rem;
             border-radius: 1rem;
             -webkit-border-radius: 1rem;
             -moz-border-radius: 1rem;
             -ms-border-radius: 1rem;
             -o-border-radius: 1rem;
+            
+            
+            width: 4rem;
+            height: 4rem;
+            
+            &:hover{
+               filter:brightness(0.95);
+                -webkit-filter:brightness(0.95); 
+            }
         }
     }
 }
