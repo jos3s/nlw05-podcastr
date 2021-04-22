@@ -126,7 +126,7 @@
         &:hover:not(:disabled){
             filter:brightness(0.7);
             -webkit-filter:brightness(0.7);
-}
+        }
 
         &.playButton{
             background: var(--purple-400);
@@ -140,7 +140,7 @@
             width: 4rem;
             height: 4rem;
             
-            &:hover{
+            &:hover:not(:disabled){
                filter:brightness(0.95);
                 -webkit-filter:brightness(0.95); 
             }
