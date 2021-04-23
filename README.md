@@ -55,7 +55,7 @@ O projeto foi desenvolvido durante a **[Next Level Week](https://nextlevelweek.c
 
 ## 📝 Licença
 
-Esse projeto usa a licença MIT. Veja a [LICENSE](LICENSE.md) para detalhes.
+Esse projeto usa a licença MIT. Veja a [LICENSE](LICENSE) para detalhes.
 
 ---
 
