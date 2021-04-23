@@ -86,7 +86,16 @@
         display: inline-bloc;
         width: 4rem;
         text-align: center;
+        
+        &:first-child{
+            margin-right:5px;
+        }
+        
+        &:last-child{
+            margin-left:5px;
+        }
     }
+
 
     .slider{
         flex:1;
