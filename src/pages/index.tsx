@@ -1,4 +1,5 @@
 import { GetStaticProps } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
@@ -27,12 +28,19 @@ type HomeProps = {
 };
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
-	const {  playlist  } = usePlayer();
+	const { playlist, isPlaying, currentEpisodeTitle } = usePlayer();
 
 	const episodeList = [...latestEpisodes, ...allEpisodes];
 
 	return (
 		<div className={styles.homepage}>
+			<Head>
+				<title>
+					{isPlaying
+						? "Tocando: " + currentEpisodeTitle
+						: "Home | Podcastr"}
+				</title>
+			</Head>
 			<section className={styles.latestEpisodes}>
 				<h2>Últimos lançamentos</h2>
 				<ul>
@@ -110,7 +118,8 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 											onClick={() =>
 												playlist(
 													episodeList,
-													index + latestEpisodes.length
+													index +
+														latestEpisodes.length
 												)
 											}
 										>
