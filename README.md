@@ -22,7 +22,7 @@ O projeto utiliza as seguintes tecnologias:
 - [React](https://reactjs.org)
 - [TypeScript](https://www.typescriptlang.org/)
 
-## 🚀 Getting started
+## 🚀 Iniciando o projeto
 
 Clone o projeto para ter acesso a pasta
 
@@ -47,7 +47,7 @@ yarn server
 yarn dev
 ```
 
-## 💻 Project
+## 💻 Projeto
 
 Você pode ver o deploy do projeto aqui: [Podcastr](https://podcastrjos3s.vercel.app/).
 
