@@ -1,6 +1,8 @@
-<h1 align="center">
+<h1 align="center">Podcastr</h1>
+
+<h2 align="center">
     <img alt="Podcastr" title="Podcastr" src=".github/podcastr.svg" />
-</h1>
+</h2>
 
 <p align="center">
   <img  src="https://img.shields.io/static/v1?label=license&message=MIT&color=5965E0&labelColor=121214" alt="License">
