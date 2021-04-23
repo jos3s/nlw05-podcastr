@@ -1,16 +1,15 @@
-import { useContext,useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import Slider from "rc-slider";
 
 import "rc-slider/assets/index.css";
-import { PlayerContext } from "../../contexts/PlayerContext";
+import { usePlayer } from "../../contexts/PlayerContext";
 
 import styles from "./styles.module.scss";
 
 export function Player() {
-
 	const audioRef = useRef<HTMLAudioElement>(null);
-	
+
 	const {
 		episodeList,
 		currentEpisodeIndex,
@@ -21,19 +20,19 @@ export function Player() {
 		setPlayingState,
 		playNext,
 		playPrevious,
-	} = useContext(PlayerContext);
+	} = usePlayer();
 
 	useEffect(() => {
 		if (!audioRef.current) {
 			return;
 		}
 		if (isPlaying) {
-			audioRef.current.play()
+			audioRef.current.play();
 		} else {
-			audioRef.current.pause()
+			audioRef.current.pause();
 		}
-	},[isPlaying])
-	
+	}, [isPlaying]);
+
 	const episode = episodeList[currentEpisodeIndex];
 
 	return (
@@ -94,7 +93,11 @@ export function Player() {
 					<button type="button" disabled={!episode}>
 						<img src="/shuffle.svg" alt="Embaralhar" />
 					</button>
-					<button type="button" onClick={playPrevious} disabled={!episode || !hasPrevious}>
+					<button
+						type="button"
+						onClick={playPrevious}
+						disabled={!episode || !hasPrevious}
+					>
 						<img src="/play-previous.svg" alt="Tocar anterior" />
 					</button>
 					<button
@@ -103,11 +106,17 @@ export function Player() {
 						className={styles.playButton}
 						onClick={togglePlay}
 					>
-						{isPlaying
-							? <img src="/pause.svg" alt="Tocar" />
-							: <img src="/play.svg" alt="Tocar" />}
+						{isPlaying ? (
+							<img src="/pause.svg" alt="Tocar" />
+						) : (
+							<img src="/play.svg" alt="Tocar" />
+						)}
 					</button>
-					<button type="button" onClick={playNext} disabled={!episode || !hasNext}>
+					<button
+						type="button"
+						onClick={playNext}
+						disabled={!episode || !hasNext}
+					>
 						<img src="/play-next.svg" alt="Tocar próxima" />
 					</button>
 					<button type="button" disabled={!episode}>
